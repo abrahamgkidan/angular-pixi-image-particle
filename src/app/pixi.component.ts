@@ -7,15 +7,11 @@ import { ImageParticleSystem, IMAGE_URL } from "./image-particle-system";
   template: ` <canvas id="viewport"></canvas> `,
   styles: [
     `
-      h1 {
-        font-family: Lato;
-      }
-
       #viewport {
-        margin: 10px auto;
+        position: absolute;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class PixiImageParticleComponent implements AfterViewInit {
   public boxSize: number = 3;

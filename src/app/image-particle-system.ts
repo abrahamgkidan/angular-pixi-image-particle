@@ -1,9 +1,14 @@
 import * as PIXI from "pixi.js";
+//@ts-ignore
 import { Renderer } from "@pixi/core";
+//@ts-ignore
 import { ParticleContainer, ParticleRenderer } from "@pixi/particle-container";
+//@ts-ignore
 import { EventSystem } from "@pixi/events";
+//@ts-ignore
 import { Graphics } from "@pixi/graphics";
 
+//@ts-ignore
 delete Renderer.__plugins.interaction;
 
 Renderer.registerPlugin("particle", ParticleRenderer);
@@ -17,7 +22,9 @@ const PADDING = 10;
 const DEFAULT_REPULSION_CHANGE_DISTANCE = 60;
 
 let repulsionChangeDistance: number = DEFAULT_REPULSION_CHANGE_DISTANCE;
+//@ts-ignore
 let mousePositionX: number = null;
+//@ts-ignore
 let mousePositionY: number = null;
 let renderingWidth: number = window.innerWidth;
 let renderingHeight: number = window.innerHeight;
@@ -49,6 +56,7 @@ class Utils {
 class PerformanceChecker {
   private performanceCheckCount: number;
   private performanceTimeSum: number;
+  //@ts-ignore
   private processStartTime: number;
 
   constructor() {
@@ -99,6 +107,7 @@ class ImageParticle {
     this.maxGravity = Utils.random(0.01, 0.04);
     this.scale = originScale;
     this.color = originColor;
+    //@ts-ignore
     this.sprite = null;
   }
 
@@ -168,8 +177,11 @@ class ImageParticle {
 export class ImageParticleSystem {
   private app: PIXI.Application;
   private imageParticles: ImageParticle[];
+  //@ts-ignore
   private particleContainer: ParticleContainer;
+  //@ts-ignore
   private imageTexture: PIXI.Texture;
+  //@ts-ignore
   private imageTexturePixels: Uint8ClampedArray;
   private performanceChecker: PerformanceChecker;
 
@@ -183,14 +195,12 @@ export class ImageParticleSystem {
       width: renderingWidth,
       height: renderingHeight,
       antialias: true,
-      autoDensity: true,
-      resolution: devicePixelRatio
+      // autoDensity: true,
+      // resolution: devicePixelRatio,
     });
-    console.log("We are inside constructor: app instantiated");
   }
 
   public setup() {
-    console.log("We are inside setup: nothing happened yet");
     // Assuming renderer is at "app.renderer"
     if (!("events" in this.app.renderer)) {
       //@ts-ignore
@@ -207,9 +217,9 @@ export class ImageParticleSystem {
     // this.app.renderer.resolution = 0.4;
 
     //@ts-ignore
-    // sp.interactive = true;
+    sp.interactive = true;
     //@ts-ignore
-    // sp.hitArea = this.app.renderer.screen;
+    sp.hitArea = this.app.renderer.screen;
 
     // Make stage interactive so you can click on it too
     //@ts-ignore
@@ -246,17 +256,26 @@ export class ImageParticleSystem {
     const startRendering = () => {
       console.log("We are inside load");
       console.log(`image-width: ${img.width}, image-height:${img.height}`);
-      while (!img.width || !img.height) {}
 
-      // img.width = this.imageTexture.width;
-      // img.height = this.imageTexture.height;
+      renderingWidth = this.imageTexture.width;
+      renderingHeight = this.imageTexture.height;
+
+      const mainCanvas = document.getElementById(
+        "viewport"
+      ) as HTMLCanvasElement;
+
+      mainCanvas.style.left = `${
+        ((window.innerWidth - renderingWidth) / 2 / window.innerWidth) * 100
+      }%`;
 
       const canvas = document.createElement("canvas") as HTMLCanvasElement;
+      const context = canvas.getContext("2d");
       canvas.width = img.width;
       canvas.height = img.height;
-      const context = canvas.getContext("2d");
+      //@ts-ignore
       context.drawImage(img, 0, 0);
 
+      //@ts-ignore
       this.imageTexturePixels = context.getImageData(
         0,
         0,
@@ -268,27 +287,21 @@ export class ImageParticleSystem {
 
       this.createParticles();
       this.addParticleSpritesToContainer();
-
-      // renderingWidth = this.imageTexture.width;
-      // renderingHeight = this.imageTexture.height;
-
-      // const mainCanvas = document.getElementById(
-      //   "viewport"
-      // ) as HTMLCanvasElement;
-
-      // mainCanvas.style.width = `${renderingWidth}px`;
-      // mainCanvas.style.height = `${renderingHeight}px`;
     };
 
     img.onload = (e) => {
       // console.log('Event: ', e);
       startRendering();
 
-      if (this.imageParticles.length < (this.imageTexture.width * this.imageTexture.height) / 100) {
+      if (
+        this.imageParticles.length <
+        (this.imageTexture.width * this.imageTexture.height) / 100
+      ) {
+        console.log("We are rerendering: ...");
         // startRendering();
         this.changeImage(imageUrl);
-        // this.app.renderer.resize(renderingWidth, renderingHeight);
       }
+      this.app.renderer.resize(renderingWidth, renderingHeight);
     };
 
     img.onerror = () => {
@@ -333,7 +346,7 @@ export class ImageParticleSystem {
         position: true,
         rotation: false,
         uvs: false,
-        tint: false
+        tint: false,
       }
     );
   }
@@ -401,8 +414,6 @@ export class ImageParticleSystem {
     const particleSprites = this.imageParticles.map(function (imageParticle) {
       return imageParticle.createSprite(particleTexture);
     });
-
-    // console.log('ImageTexturePixels: ', this.imageTexturePixels);
 
     // @ts-ignore
     this.particleContainer.addChild(...particleSprites);

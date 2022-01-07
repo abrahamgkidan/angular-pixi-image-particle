@@ -1,5 +1,10 @@
 div {
+  width: 100%;
   text-align: center;
+}
+
+h1 {
+  font-family: Lato;
 }
 
 .title {
@@ -8,6 +13,9 @@ div {
 }
 
 .pixi-container {
+  
+  width: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
 }
