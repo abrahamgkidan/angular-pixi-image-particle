@@ -255,8 +255,8 @@ export class ImageParticleSystem {
     const startRendering = () => {
       console.log(`image-width: ${img.width}, image-height:${img.height}`);
 
-      renderingWidth = this.imageTexture.width / 2;
-      renderingHeight = this.imageTexture.height / 2;
+      renderingWidth = this.imageTexture.width;
+      renderingHeight = this.imageTexture.height;
 
       const mainCanvas = document.getElementById(
         "viewport"
