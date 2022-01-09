@@ -28,8 +28,8 @@ let repulsionChangeDistance: number = DEFAULT_REPULSION_CHANGE_DISTANCE;
 let mousePositionX: number = null;
 //@ts-ignore
 let mousePositionY: number = null;
-let renderingWidth: number = window.innerWidth;
-let renderingHeight: number = window.innerHeight;
+let renderingWidth: number = window.innerWidth - 150;
+let renderingHeight: number = window.innerHeight - 150;
 
 // ==================================================
 // Utils
