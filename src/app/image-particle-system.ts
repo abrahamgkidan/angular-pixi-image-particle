@@ -255,21 +255,21 @@ export class ImageParticleSystem {
     const startRendering = () => {
       console.log(`image-width: ${img.width}, image-height:${img.height}`);
 
-      renderingWidth = 3 / 4 * this.imageTexture.width;
-      renderingHeight = 3 / 4 * this.imageTexture.height;
+      // renderingWidth = 3 / 4 * this.imageTexture.width;
+      // renderingHeight = 3 / 4 * this.imageTexture.height;
 
       const mainCanvas = document.getElementById(
         "viewport"
       ) as HTMLCanvasElement;
 
       mainCanvas.style.left = `${
-        ((window.innerWidth - 100 - renderingWidth) / 2 / (window.innerWidth - 100)) * 100
+        ((window.innerWidth + 100 - renderingWidth) / 2 / (window.innerWidth + 100)) * 100
       }%`;
 
       const canvas = document.createElement("canvas") as HTMLCanvasElement;
       const context = canvas.getContext("2d");
-      canvas.width = 3 / 4 * img.width;
-      canvas.height = 3 / 4 * img.height;
+      canvas.width = img.width;
+      canvas.height = img.height;
       //@ts-ignore
       context.drawImage(img, 0, 0);
 
@@ -277,8 +277,8 @@ export class ImageParticleSystem {
       this.imageTexturePixels = context.getImageData(
         0,
         0,
-       3 / 4 * img.width,
-        3 / 4 * img.height
+        img.width,
+        img.height
       ).data;
 
       // console.log("ImageTexturePixels: ", this.imageTexturePixels);
