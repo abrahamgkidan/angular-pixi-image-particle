@@ -277,8 +277,8 @@ export class ImageParticleSystem {
       this.imageTexturePixels = context.getImageData(
         0,
         0,
-        img.width,
-        img.height
+        3 / 4 * img.width,
+        3 / 4 * img.height
       ).data;
 
       // console.log("ImageTexturePixels: ", this.imageTexturePixels);
