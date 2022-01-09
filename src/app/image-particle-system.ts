@@ -14,6 +14,7 @@ delete Renderer.__plugins.interaction;
 Renderer.registerPlugin("particle", ParticleRenderer);
 
 export const IMAGE_URL =
+  "https://i.ibb.co/Y0btfMs/m-1024-1024-black.png" ||
   "https://i.ibb.co/SrGNS4j/350-Wx350-H-192724-0320-px.png" ||
   "https://i.ibb.co/WpPRTGT/R-logo-icon.jpg" ||
   "https://avatars.githubusercontent.com/yamadashy";
@@ -254,8 +255,8 @@ export class ImageParticleSystem {
     const startRendering = () => {
       console.log(`image-width: ${img.width}, image-height:${img.height}`);
 
-      renderingWidth = this.imageTexture.width;
-      renderingHeight = this.imageTexture.height;
+      renderingWidth = this.imageTexture.width / 2;
+      renderingHeight = this.imageTexture.height / 2;
 
       const mainCanvas = document.getElementById(
         "viewport"
