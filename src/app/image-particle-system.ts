@@ -126,7 +126,12 @@ class ImageParticle {
     this.updateStateByOrigin();
     // this.updateStateByRandom(); In case default motion is needed
 
-    this.velocity.set(this.velocity.x * 0.95, this.velocity.y * 0.95);
+    if (this.velocity.x > 1.5 || this.velocity.y > 1) {
+      this.velocity.set(this.velocity.x * 0.95, this.velocity.y * 0.95);
+    }
+
+    // this.velocity.set(this.velocity.x * 0.95, this.velocity.y * 0.95);
+    
     this.position.set(
       this.position.x + this.velocity.x,
       this.position.y + this.velocity.y
