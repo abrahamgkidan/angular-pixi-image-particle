@@ -125,13 +125,10 @@ class ImageParticle {
     // Calc position
     this.updateStateByMouse();
     this.updateStateByOrigin();
-    // this.updateStateByRandom(); In case default motion is needed
 
     if (this.velocity.x > 1.5 || this.velocity.y > 1) {
       this.velocity.set(this.velocity.x * 0.95, this.velocity.y * 0.95);
     }
-
-    // this.velocity.set(this.velocity.x * 0.95, this.velocity.y * 0.95);
 
     this.position.set(
       this.position.x + this.velocity.x,
@@ -140,11 +137,6 @@ class ImageParticle {
 
     // Update sprite state
     this.sprite.position.set(this.position.x, this.position.y);
-  }
-
-  private updateStateByRandom() {
-    this.velocity.x += Math.random() * 100 - 100;
-    this.velocity.y += Math.random() * 100 - 100;
   }
 
   private updateStateByMouse() {
@@ -197,7 +189,7 @@ export class ImageParticleSystem {
     const canvas = document.getElementById("viewport") as HTMLCanvasElement;
     this.app = new PIXI.Application({
       view: canvas,
-      backgroundColor: 0x16203a,
+      backgroundColor: 0xffffff,
       width: renderingWidth,
       height: renderingHeight,
       antialias: true,
