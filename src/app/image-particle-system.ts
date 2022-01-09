@@ -14,6 +14,7 @@ delete Renderer.__plugins.interaction;
 Renderer.registerPlugin("particle", ParticleRenderer);
 
 export const IMAGE_URL =
+  "https://i.ibb.co/SrGNS4j/350-Wx350-H-192724-0320-px.png" ||
   "https://i.ibb.co/WpPRTGT/R-logo-icon.jpg" ||
   "https://avatars.githubusercontent.com/yamadashy";
 
@@ -131,7 +132,7 @@ class ImageParticle {
     }
 
     // this.velocity.set(this.velocity.x * 0.95, this.velocity.y * 0.95);
-    
+
     this.position.set(
       this.position.x + this.velocity.x,
       this.position.y + this.velocity.y
@@ -259,7 +260,6 @@ export class ImageParticleSystem {
 
     const img = new Image();
     const startRendering = () => {
-      console.log("We are inside load");
       console.log(`image-width: ${img.width}, image-height:${img.height}`);
 
       renderingWidth = this.imageTexture.width;
@@ -302,7 +302,7 @@ export class ImageParticleSystem {
         this.imageParticles.length <
         (this.imageTexture.width * this.imageTexture.height) / 100
       ) {
-        console.log("We are rerendering: ...");
+        // console.log("We are rerendering: ...");
         // startRendering();
         this.changeImage(imageUrl);
       }
